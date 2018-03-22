@@ -27,13 +27,13 @@ config.read('config.ini')
 #Config file must allow wikipedia, Gutenberg, ...
 corpus_path = config['WIKI']['en'][1:-1]
 
-tfidf = TfidfModel()
 dictionary = Dictionary.load_from_text(os.path.relpath(corpus_path+'_wordids.txt.bz2'))
 bow_corpus = MmCorpus(os.path.relpath(corpus_path+'_bow.mm'))
 
 try:
-    tfidf.load(corpus_path+'wiki-tfidf.model')
+    tfidf = TfidfModel.load(corpus_path+'wiki-tfidf.model')
 except:
+    tfidf = TfidfModel()
     tfidf = TfidfModel(bow_corpus,dictionary)
     tfidf._smart_save(corpus_path+'wiki-tfidf.model')
     pass
