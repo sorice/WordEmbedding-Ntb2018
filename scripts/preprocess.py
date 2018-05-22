@@ -16,27 +16,27 @@ import numpy as np
 
 #Importing all features
 from sklearn.metrics.pairwise import cosine_similarity as kcosine
-from textsim.tokendists import cosine_distance_scipy as scosine
+#from textsim.tokendists import cosine_distance_scipy as scosine
 from gensim.matutils import cossim as gcosine
 from gensim.matutils import jaccard as gjaccard
 from distances import n_similarity as nsimilarity
 from distances import jonh2016_similarity as jonh2016
 from distances import harmonic_best_pair_word_sim as hbestpw
 
-'''Name Leyend:
+"""Name Leyend:
     * sentenceX: string
     *     sentX: string vector
     * bow_sentX: bag of word vector [(word_id,1)]
     * bow_sentX_tfidf: bag of word vector with tfidf coefficients [(word_id,word_tfidf)]
     * nvec_sentX_tfidf: numpy array with tfidf coefficients (it's obtained normalizing
                         words in both sentences.)
-'''
+"""
 
 #SIM_VECTOR
 features = {
     'gcosine':gcosine,
     'gjaccard':gjaccard,
-    'scosine':scosine,
+    #'scosine':scosine,
     'kcosine':kcosine,
     'nsimilarity':nsimilarity,
     'jonh2016':jonh2016,
@@ -176,9 +176,9 @@ if __name__ == '__main__':
             print(len(sim_vec),sim_vec)
             output.loc[i] = sim_vec
 
-        output.to_csv('data/'+outdata+'.csv')
+        output.to_csv('data/'+outdata)
 
     else:
         print('\n'.join(["Unexpected number of commandline arguments.", 
-            "Usage: ./process.py {indata} {model} {outdata}"]))
+            "Usage: ./process.py {indata} {model} {corpus} {outdata}"]))
 
