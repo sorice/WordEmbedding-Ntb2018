@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf-8-sig -*-
+
 from configparser import ConfigParser
 import os
 

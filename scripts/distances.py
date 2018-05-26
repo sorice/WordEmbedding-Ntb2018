@@ -1,5 +1,11 @@
+#!/usr/bin/env python
+# -*- coding: utf-8-sig -*-
+
 '''This packages provide all similarity functions created from papers.
 '''
+
+import pandas as pd
+from sklearn.metrics.pairwise import cosine_similarity
 
 def n_similarity(sent1,sent2, model):
     '''n_similarity method implemented in w2v and p2v.'''
@@ -48,6 +54,37 @@ def harmonic_best_pair_word_sim(sent1,sent2,model):
         for wordB in sent1:
             try:
                 m = max(m, model.wv.similarity(wordA,wordB))
+            except:
+                pass
+        q += m
+    q = q/len(sent2)
+
+    sim = 2*p*q/(p+q or 1)
+    return sim
+
+def best_pair_word_overlap(sent1,sent2, pdTfIdf):
+    p=0
+    for wi in sent1:
+        m = 0
+        for wc in sent2:
+            try:
+                winp = pdTfIdf.loc[wi].values.reshape(1,-1)
+                wcnp = pdTfIdf.loc[wc].values.reshape(1,-1)
+                m = float(max(m, cosine_similarity(winp,wcnp)))
+            except:
+                pass
+        p += m
+    p = p/len(sent1)
+
+    q=0
+    for wc in sent2:
+        m = 0
+        for wi in sent1:
+            try:
+                wcnp = pdTfIdf.loc[wc].values.reshape(1,-1)
+                winp = pdTfIdf.loc[wi].values.reshape(1,-1)
+                m = float(max(m, cosine_similarity(winp,wcnp)))
+                #print(m, type(m))
             except:
                 pass
         q += m
