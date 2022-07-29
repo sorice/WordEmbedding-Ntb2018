@@ -1,0 +1,15 @@
+# nlp
+nltk
+sense2vec
+en_core_web_md
+gensim
+glove
+
+# scientific
+scipy
+sklearn
+numpy
+pandas
+
+# extra
+smart_open
